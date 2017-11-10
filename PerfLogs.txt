@@ -1,0 +1,80 @@
+PERFLOGS:
+10 particles
+runtime 50 cycles
+perform at end
+
+16/9:3:23 PM 9/17/2016
+
+#numpy
+%timeit ComputeForces()
+1000 loops, best of 3: 1.52 ms per loop
+
+%timeit EOMintegrate()
+10000 loops, best of 3: 30.9 탎 per loop
+
+17/9:
+
+#1
+%timeit ComputeForces()
+1000 loops, best of 3: 1.53 ms per loop
+
+%timeit EOMintegrate()
+The slowest run took 6.93 times longer than the fastest. This could mean that an intermediate result is being cached.
+10000 loops, best of 3: 30.6 탎 per loop
+
+#Note: no benefits, crap accuracy, gtfo, for now.
+
+#2 Revert numpy:
+%timeit ComputeForces()
+The slowest run took 4.66 times longer than the fastest. This could mean that an intermediate result is being cached.
+1000 loops, best of 3: 1.47 ms per loop
+
+%timeit EOMintegrate()
+The slowest run took 6.37 times longer than the fastest. This could mean that an intermediate result is being cached.
+10000 loops, best of 3: 31.4 탎 per loop
+
+# Ditched multiple calls to Force with vars Fex and Fey
+% timeit ComputeForces()
+1000 loops, best of 3: 811 탎 per loop
+
+% timeit EOMintegrate()
+The slowest run took 6.97 times longer than the fastest. This could mean that an intermediate result is being cached.
+10000 loops, best of 3: 30.4 탎 per loop
+
+#again
+% timeit ComputeForces()
+1000 loops, best of 3: 866 탎 per loop
+
+% timeit EOMintegrate()
+10000 loops, best of 3: 32.3 탎 per loop
+
+
+#rid some junk
+% timeit ComputeForces()
+1000 loops, best of 3: 809 탎 per loop
+
+% timeit EOMintegrate()
+10000 loops, best of 3: 32.2 탎 per loop
+
+#again
+% timeit ComputeForces()
+1000 loops, best of 3: 826 탎 per loop
+
+% timeit EOMintegrate()
+10000 loops, best of 3: 32.1 탎 per loop
+
+#made Forcex Forcey
+% timeit ComputeForces()
+1000 loops, best of 3: 811 탎 per loop
+
+% timeit EOMintegrate()
+10000 loops, best of 3: 31.6 탎 per loop
+
+#again
+% timeit ComputeForces()
+1000 loops, best of 3: 810 탎 per loop
+
+% timeit EOMintegrate()
+The slowest run took 5.03 times longer than the fastest. This could mean that an intermediate result is being cached.
+10000 loops, best of 3: 31.6 탎 per loop
+
