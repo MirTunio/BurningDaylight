@@ -2,6 +2,20 @@
 Sandpiles (re-write)
 https://en.wikipedia.org/wiki/Abelian_sandpile_model
 
+Life, living organisms are on the edge of chaos. 
+Living between ordered and chaotic regimes, at a critical point. 
+('This compromise between order and surpirse - appear best able
+to coordinate complex activities and best able to evolve as well'
+- Stuart Kauffman)
+The sandpile model demmonstrates how such critical points arise
+in nature.Indeed, how these critical points self-organize.
+
+Beautiful, life in a grain of sand. 
+'''
+
+
+
+'''
 Take to 1d array and lose the 'topple' function. LETS GET EFFIECIENT
 '''
 import numpy as np
