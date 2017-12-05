@@ -16,7 +16,8 @@ beautiful patterns left behind.
 
 These beautiful patterns are emergent properties of the sand-
 pile model. They come about even if we topple each sand pile
-in a random way. These patterns are symbolic of life. 
+in a random way. These patterns are representative of life as 
+emergent process. 
 '''
 
 import numpy as np
