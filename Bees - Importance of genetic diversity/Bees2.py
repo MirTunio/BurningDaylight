@@ -1,6 +1,6 @@
 #Bees
 '''
-True stability is borne out of the interplay of opposing forces. Too much homogeniety breeds instability.
+True stability is borne out of the interplay of opposing forces. Too much homogeneity breeds instability.
 '''
 import numpy as np
 from matplotlib import pyplot as plt
