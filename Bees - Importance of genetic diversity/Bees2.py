@@ -60,8 +60,8 @@ def trial(iterations,ranno,HiveT): #Look at the amount of bees cooling and heati
     plt.ylabel('Temperature')
     plt.show()
 
-
-
+#%% RUN
+trial(100,True,39)
 
 
 
