@@ -12,6 +12,7 @@ class Bees:
         self.dist = dist
         if self.dist:
             self.gtI = np.random.normal(loc = 30.12311, scale = 6) #Randomly distributed ideal temperatures about the true hive ideal
+#            self.gtI = np.random.normal(loc = 30.12311, scale = 33) #More randomly distributed, perhaps too much
         else:
             self.gtI = 30.12311 #All ideal temperatures exactly the hive ideal temperature
 
