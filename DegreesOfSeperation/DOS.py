@@ -135,9 +135,9 @@ for N in NList:
 #    print('Average: '+ str(shortest))
     DegreeList.append(shortest)
 
-plt.plot(DegreeList, linewidth = 2, color = 'blue', alpha = 0.8, marker = 'x')
+plt.plot(NList,DegreeList, linewidth = 2, color = 'blue', alpha = 0.8, marker = 'x')
 plt.title('10 to 500 Nodes - Average Shortest Path - Barabasi-Albert Graph')
-plt.xlable('Nodes')
+plt.xlabel('Nodes')
 plt.ylabel('Average Shortest Path')
 plt.show()
 
@@ -163,7 +163,7 @@ def logarithmic(x, a, b):
 
 at7BLog = []
 params = []
-fren = range(20,100,5)
+fren = range(1,100,5)
 
 for friends in fren:
     print(friends)
@@ -180,3 +180,12 @@ plt.xlabel('friends')
 plt.grid()
 plt.show()
 
+#%%
+#ex = range(10000,7500000000,10000)
+#plt.figure()
+#plt.plot(ex, logarithmic(ex, *popt), 'r-', label="Fitted Curve")
+#plt.grid()
+#plt.ylim(3.5,5.5)
+#plt.xlabel('Number of Nodes (Population)')
+#plt.ylabel('Degree of Separation (DOS)')
+#plt.show()
