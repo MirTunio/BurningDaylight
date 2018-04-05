@@ -1,4 +1,7 @@
-#Simulation of Cocktail Party phenomenon in Linked by Barabasi
+# Simulation of Cocktail Party phenomenon in Linked by Barabasi
+# Modelling the connectivity threshold after which networks form large groups (communities/clusters/circles/Groups etc.)
+# 
+
 
 # Start with N nodes
 # With random probability at each iteration, connect each node with one other
