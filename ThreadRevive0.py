@@ -6,7 +6,7 @@ from datetime import datetime
 import gkeepapi
 import secrets1
 
-#%% GENERATE COMPILATIOM
+#%% GENERATE COMPILATIONS
 keep = gkeepapi.Keep()
 keep.login('tuniomurtaza@gmail.com', secrets1.AP)
 all_keeps = keep.all()
