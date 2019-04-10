@@ -8,7 +8,7 @@ import secrets1
 
 #%% GENERATE COMPILATIONS
 keep = gkeepapi.Keep()
-keep.login('tuniomurtaza@gmail.com', secrets1.AP)
+keep.login(secrets.EMAIL, secrets1.AP)
 all_keeps = keep.all()
 
 all_paths = []
