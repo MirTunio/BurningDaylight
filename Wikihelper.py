@@ -89,31 +89,3 @@ def wiki(fulltext):
 #    r = requests.get(url)
 #    soup = BeautifulSoup(r.content)
 #    # If not, return propper wikipedia page
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
