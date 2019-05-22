@@ -1,6 +1,6 @@
 """
 TUNIO 2019
-Build out basic wikipedia interface
+Build out basic wikipedia interface in python
 """
 
 import wikipedia
