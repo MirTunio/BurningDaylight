@@ -9,6 +9,10 @@ from re import sub
 import PyDictionary
 dictionary = PyDictionary.PyDictionary()
 import pprint
+import wikiquotes
+from bs4 import BeautifulSoup
+import requests
+
 #from datetime import date
 
 wikipedia.set_lang('en')
@@ -91,8 +95,16 @@ def wiki(fulltext, from_number):
         response = "Welcome to Wikipedia SMS, created by TUNIO 2019"
         
     elif QUERY == 'how':
-        response = "to set language to urdu, reply: urdu, to set language to english reply: english, to search reply with: search Albert Einstein, to open a page reply with: wiki Albert Einstein, to look up a word in dictionary reply with: define abstraction"
+        response = "to set language to urdu, reply: urdu, to set language to english reply: english, to search reply with: search Albert Einstein, to open a page reply with: wiki Albert Einstein, to look up a word in dictionary reply with: define abstraction. to get quote reply quote of day"
    
+    elif QUERY == 'quote':
+        QUOTE = wikiquotes.quote_of_the_day("english")
+        response = QUOTE[0] + " - " + QUOTE[1]
+        
+    elif QUERY == 'minariaz':
+        QUOTE = wikiquotes.quote_of_the_day("english")
+        response = "HEY MINA! HAVE A NICE DAY!! \n\n" + QUOTE[0] + " - " + QUOTE[1] + "\n\ndoggo: \n" + "https://random.dog/" + BeautifulSoup(requests.request("GET","https://random.dog/").text,"lxml").img['src']
+        
     else:
         print('WIKIHELPER: got a poor format: ', fulltext)
         response = "poor formatting!, reply with: how"
