@@ -40,9 +40,7 @@ def echo():
         return jsonify({'events':''} )
 
 		
-def get_wiki(body, from_number): 
-	"""helper function to pass message to Wikihelper and catch unexpected errors 
-	so they	aren't passed to users."""
+def get_wiki(body, from_number): #helper function to pass message to Wikihelper and catch unexpected errors so they	aren't passed to users
     try:
         return Wikihelper2.wiki(body, from_number)    
     except:
