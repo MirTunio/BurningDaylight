@@ -1,6 +1,6 @@
 """
 TUNIO 2019
-Build out basic wikipedia interface
+Build out basic wikipedia and dictionary interface
 Now with sessions...
 """
 
@@ -14,9 +14,8 @@ import pprint
 wikipedia.set_lang('en')
 counter = 1
 
-language_holder = {} #sessionID: number, language, # init with en, assert everytime wiki happens
+language_holder = {} # contains: "number: language", init with english "en", assert the set language everytime wiki happens
 page_summary_holder = {} #sessionID:[fid,page_summary_splits] # will be created/ updated with wiki, used/updated with more
-#TODO: search_holder = {} #sessionID: search_result dict
 
 def wiki(fulltext, from_number):
     fulltext = fulltext.rstrip().lstrip()
@@ -26,16 +25,15 @@ def wiki(fulltext, from_number):
     
     QUERY = fulltext.split(' ')[0].lower().rstrip().lstrip()
     
-    if QUERY == 'search': #TODO: NEEDS TO RETURN: RESULTS 1. abcd, 2. asdasd and say: reply with 1 or 2 for interest
+    if QUERY == 'search': #TODO: NEEDS TO RETURN: RESULTS 1. abcd, 2. asdf, and say: reply with 1 or 2 (etc.) to open wiki page
         print('WIKIHELPER: got a search')
         assert_lang(from_number, override = True)
-        search_term = fulltext[7:]
+        search_term = fulltext[7:].lower().rstrip().lstrip() #cuts out the search
         print(search_term)
-        search_result = wikipedia.search(search_term)
+        search_result = wikipedia.search(search_term) #searches wikipedia with query
         search5 = search_result[:5]
-        [response + ', ' + result for result in search5][2:]
         response = ", ".join(search5)
-        response = response[:150]
+        response = response[:150] # dont recall why I just look at first 150 chars, but must be important...
         if response == '':
             response = "No entries found!"
         
@@ -46,7 +44,7 @@ def wiki(fulltext, from_number):
         print('WIKIHELPER (page name): ' + page_title)
         try: 
             page_summary_full = wikipedia.summary(page_title)
-            if page_summary_full == '':
+            if page_summary_full == "":
                 response = "This page does not exist, change language to english by replying: english, or try using 'search' and replying with correct spelling..."
                 return response   
             
@@ -63,7 +61,7 @@ def wiki(fulltext, from_number):
             COUNTER_RETRIEVED = RETRIEVED[0]
             SPLIT_RETRIEVED = RETRIEVED[1]
             
-            print('WIKIHELPER: got a more') 
+            print('WIKIHELPER (query): got a more') 
             if COUNTER_RETRIEVED >= len(SPLIT_RETRIEVED):
                 response = "END OF SUMMARY... wiki something new!"
             else:
@@ -73,7 +71,8 @@ def wiki(fulltext, from_number):
     elif QUERY == 'define':
         word = sub(' +', ' ', fulltext[6:].rstrip().lstrip())
         dictionary_lookup = dictionary.meaning(word)
-        pretty_str = pprint.pformat(dictionary_lookup)
+#        pretty_str = pprint.pformat(dictionary_lookup) #TODO: THIS IS CATEGORICALLYEGORICALLY NOT PRETTY, WHY DO I SEE CURLY BRACKETS??
+        pretty_str = ('\n'.join("{}: {}".format(k, v) for k, v in dictionary_lookup.items()))
         response =  pretty_str
            
     elif QUERY == 'urdu': #TODO: Urdu searches VERY VERY strangely sometimes, try wiki WD-40
@@ -111,7 +110,7 @@ def assert_lang(from_number, override = False):
         wikipedia.set_lang(desired_language)
         
 def add_newsplit(from_number, page_summary_full):   
-    nchars = 400
+    nchars = 700
     page_summary_splits = [page_summary_full[i:i+nchars] for i in range(0,len(page_summary_full),nchars)]
     page_summary_holder[from_number] = (1,page_summary_splits)
     
