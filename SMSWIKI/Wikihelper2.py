@@ -108,7 +108,7 @@ def wiki(fulltext, from_number):
     elif QUERY == 'minariaz':
         #QUOTE = wikiquotes.quote_of_the_day("english")
         #response = "HEY MINA! HAVE A NICE DAY!! \n\n" + QUOTE[0] + " - " + QUOTE[1] + "\n\ndoggo: \n" + "https://random.dog/" + BeautifulSoup(requests.request("GET","https://random.dog/").text,"lxml").img['src']
-        response = "HEY MINA! HAVE A NICE DAY!! \n\ndoggo: \n" + "https://random.dog/" + BeautifulSoup(requests.request("GET","https://random.dog/").text,"lxml").img['src']
+        response = "HEY MINA! HAVE A NICE DAY!! \n\ndoggo: \n" + "https://random.dog/" + BeautifulSoup(requests.request("GET","https://random.dog/").text,"html.parser").img['src']
         
     else:
         print('WIKIHELPER: got a poor format: ', fulltext)
