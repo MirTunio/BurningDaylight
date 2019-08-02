@@ -13,6 +13,7 @@ Part 3:
 https://medium.com/burningdaylight/making-wikipedia-available-by-text-message-part-3-64115e1945bf?source=friends_link&sk=ddccff0613b6d1ee1869182b75a584ce
 
 ## Getting Started
+(The files to use are "envaya_test_4.py" and "WikiHelper2.py")
 
 Install EnvayaSMS and Termux on your phone. Install python on the Termux linux environment. Install virtualenv and then install the other dependancies (flask, wikipedia etc) using "pip install < dependancy>" in this virtual environment.
 Clone the code to the android phone, and run the 'envaya_test_4.py' from the virtual environment. Open the EnvayaSMS app and point it to the flask server running at "http://localhost:5000/sms" by default.
