@@ -26,6 +26,8 @@ Clone the code to the android phone, and run the 'envaya_test_4.py' from the vir
 
 - Make the sms-interface even simpler, clearer, and intuitive.
 
+- The Urdu interace to Wikipedia yields strange search results and pulls up incorrect pages at times. Unclear what is causing this at the moment.
+
 
 ## License
 
