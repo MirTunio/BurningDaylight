@@ -1,5 +1,7 @@
 # Wikipedia by SMS
-This project is an applet meant to be run in conjunction with the EnvayaSMS app on Anrdoid, and a local
+This project is an applet meant to be run in conjunction with the EnvayaSMS app on Anrdoid, and a Flask server running on locally using Termux. The goal is to provide access to Wikipedia through a simple SMS based interface. This applet would help those without the means or ability to use the internet to access this vast body of information for the cost of a few sms messages. The Server side would bear the cost burden of outgoing messages and internet access, which would be a small price to pay for the service it provides to potentially hundreds of thousands of people. 
+
+I have written a series of articles describing my efforts in achieving this aim:
 
 Part 1:
 https://medium.com/burningdaylight/making-wikipedia-available-by-text-message-5b8a7913ec23?source=friends_link&sk=134c21f43030c4fa63b8e8eb5ce6168c
@@ -12,11 +14,10 @@ https://medium.com/burningdaylight/making-wikipedia-available-by-text-message-pa
 
 ## Getting Started
 
-Install EnvayaSMS and Termux on your phone. Install python on the Termux linux environment. Install virtualenv and then install the other dependancies (flask, wikipedia etc) using "pip install < dependancy>" on the environment.
-Clone the code to the android phone, and run the 'envaya_test_4.py' from the virtual environment. Open the EnvayaSMS app and point it to the flask server running at "http://localhost:5000/sms".
+Install EnvayaSMS and Termux on your phone. Install python on the Termux linux environment. Install virtualenv and then install the other dependancies (flask, wikipedia etc) using "pip install < dependancy>" in this virtual environment.
+Clone the code to the android phone, and run the 'envaya_test_4.py' from the virtual environment. Open the EnvayaSMS app and point it to the flask server running at "http://localhost:5000/sms" by default.
 
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
