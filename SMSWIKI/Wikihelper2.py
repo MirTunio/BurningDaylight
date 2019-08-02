@@ -100,7 +100,7 @@ def wiki(fulltext, from_number):
 #        QUOTE = wikiquotes.quote_of_the_day("english")
 #        response = QUOTE[0] + " - " + QUOTE[1]
         
-    elif QUERY == 'minariaz':
+    elif QUERY == 'minar': #An easter egg for a friend of mine
         #QUOTE = wikiquotes.quote_of_the_day("english")
         #response = "HEY MINA! HAVE A NICE DAY!! \n\n" + QUOTE[0] + " - " + QUOTE[1] + "\n\ndoggo: \n" + "https://random.dog/" + BeautifulSoup(requests.request("GET","https://random.dog/").text,"lxml").img['src']
         response = "HEY MINA! HAVE A NICE DAY!! \n\ndoggo: \n" + "https://random.dog/" + BeautifulSoup(requests.request("GET","https://random.dog/").text,"html.parser").img['src']
@@ -131,3 +131,20 @@ def push_split_counter(from_number):
     NEW = (OLD[0]+1,OLD[1])
     page_summary_holder[from_number] = NEW
      
+    
+#%% Notes:
+"""
+Make each command: 'wiki page', 'wiki how', 'wiki english' etc. etc. So that only those 
+messages with 'wiki' infront of them receive a response. But Flask doesn't like empty
+returns, hmm. OH RIGHT, the function just returns nothing. Just return nothing. Just don't
+do anything. And this check could happen on Envaya level perhaps.. to be seen
+
+Need to add battery and connectivity checks, and then send warnings to HANDLER phone number
+
+GEOLOCATION, THEN:::::
+ADD WEATHER FORECASTS!!! NEEED TO DO THISA ASDKJNADWKMAWDMPOW EDO THIS DO THIS DO THIS NOW
+
+Ask Nims for a code review. Link Sef.
+
+ENG/URDU dict. etc. see article Part 3
+"""
