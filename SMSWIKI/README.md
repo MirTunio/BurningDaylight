@@ -8,8 +8,7 @@ Part 2:
 https://medium.com/burningdaylight/making-wikipedia-available-by-text-message-part-2-36be87cd0f0f?source=friends_link&sk=53cb15a1abad221ab5674b16f8f609ae
 
 Part 3:
-coming soon
-
+https://medium.com/burningdaylight/making-wikipedia-available-by-text-message-part-3-64115e1945bf?source=friends_link&sk=ddccff0613b6d1ee1869182b75a584ce
 
 ## Getting Started
 
