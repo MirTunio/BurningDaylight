@@ -94,14 +94,9 @@ def wiki(fulltext, from_number):
         response = "Welcome to Wikipedia SMS, created by TUNIO 2019"
         
     elif QUERY == 'how':
-        response = "To search reply with: search Albert Einstein\n\
-                    to open a page reply with: wiki Albert Einstein\n\
-                    to view next part reply with: more\n\
-                    to set language to urdu reply: urdu\n\
-                    to set language to english reply: english\n\
-                    to use dictionary reply with: define abstraction."
+        response = "To search reply with: search Albert Einstein\nto open a page reply with: wiki Albert Einstein\nto view next part reply with: more\nto set language to urdu reply: urdu\nto set language to english reply: english\nto use dictionary reply with: define abstraction."
    
-#    elif QUERY == 'quote':
+#    elif QUERY == 'quote': #Quote library does not work on Termux/Linux flavor. We can figure this out later... 
 #        QUOTE = wikiquotes.quote_of_the_day("english")
 #        response = QUOTE[0] + " - " + QUOTE[1]
         
