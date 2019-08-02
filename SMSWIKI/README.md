@@ -23,6 +23,8 @@ Clone the code to the android phone, and run the 'envaya_test_4.py' from the vir
 
 - Create a more robust server setup which can handle a larger number of queries
 
+- Make the sms-interface even simpler, clearer, and intuitive.
+
 
 ## License
 
