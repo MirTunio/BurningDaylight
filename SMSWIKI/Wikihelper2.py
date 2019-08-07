@@ -19,6 +19,8 @@ counter = 1
 
 language_holder = {} # contains: "number: language", init with english "en", assert the set language everytime wiki happens
 page_summary_holder = {} #sessionID:[fid,page_summary_splits] # will be created/ updated with wiki, used/updated with more
+diagnow = []
+
 
 def wiki(fulltext, from_number):
     fulltext = fulltext.rstrip().lstrip()
@@ -105,6 +107,31 @@ def wiki(fulltext, from_number):
         #response = "HEY MINA! HAVE A NICE DAY!! \n\n" + QUOTE[0] + " - " + QUOTE[1] + "\n\ndoggo: \n" + "https://random.dog/" + BeautifulSoup(requests.request("GET","https://random.dog/").text,"lxml").img['src']
         response = "HEY MINA! HAVE A NICE DAY!! \n\ndoggo: \n" + "https://random.dog/" + BeautifulSoup(requests.request("GET","https://random.dog/").text,"html.parser").img['src']
         
+    elif QUERY == 'weather':
+        #tm@g, weather123
+        #what city? #this will need to built out with particular cites, potentailly move to new module...
+        #https://openweathermap.org/current
+        ID = "1174867" #KARACHI
+        OWM = "b958a659ef18989bda00a932f1e9badc"
+        URL = "http://api.openweathermap.org/data/2.5/forecast?id={}&APPID={}&units=metric".format(ID,OWM)
+        jinx = "https://samples.openweathermap.org/data/2.5/forecast?id=524901&appid=b958a659ef18989bda00a932f1e9badc"
+        weather_out = requests.request("GET",URL).json() #API key not working yet, tm@gma, weather123, see
+        day_list = weather_out['list']
+        day_temp = [str((daycast['dt_txt'], daycast['main']['temp'], daycast['weather'][0]['description'])) for daycast in day_list]
+        #print(day_temp)
+        #Now once key starts working, cull this to next 5 days, temp/rain/etc.
+        #It is 5 days, every 3 hrs forecast.
+        response = "Forecast for Karachi:\n{}".format('\n'.join(day_temp))
+        
+        
+    elif QUERY == 'diagnose' or from_number in diagnow:
+        if from_number not in diagnow:
+            diagnow.append(from_number)
+            response = 'blah session ended' #DiagnosticTree2.smsqa(fulltext, from_number)
+        if 'session ended' in response:
+            diagnow.remove(from_number)
+        return response
+        
     else:
         print('WIKIHELPER: got a poor format: ', fulltext)
         response = "poor formatting!, reply with: how"
@@ -122,7 +149,7 @@ def assert_lang(from_number, override = False):
         wikipedia.set_lang(desired_language)
         
 def add_newsplit(from_number, page_summary_full):   
-    nchars = 700
+    nchars = 600
     page_summary_splits = [page_summary_full[i:i+nchars] for i in range(0,len(page_summary_full),nchars)]
     page_summary_holder[from_number] = (1,page_summary_splits)
     
@@ -144,7 +171,19 @@ Need to add battery and connectivity checks, and then send warnings to HANDLER p
 GEOLOCATION, THEN:::::
 ADD WEATHER FORECASTS!!! NEEED TO DO THISA ASDKJNADWKMAWDMPOW EDO THIS DO THIS DO THIS NOW
 
-Ask Nims for a code review. Link Sef.
+Maintain a phonebook
+Emergency alerts
 
 ENG/URDU dict. etc. see article Part 3
+ENG/SINDHI
+
+Educational courses
+
+Diganosis project (other file)
+
+Need to maintain log on file of past searches, a cache cleared every day or two or something.
+^For continuity of 'more', past the breaks in system. And also explicity memory usage monitoring etc.
+^^ Save the language holder and page summary holder to pickle or something everytime an authorized 
+   shutdown occurs or a 12 hrs pass. load on every start cycle or every save cycle
+
 """
