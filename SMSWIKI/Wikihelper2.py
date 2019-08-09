@@ -11,7 +11,7 @@ dictionary = PyDictionary.PyDictionary()
 #import wikiquotes
 from bs4 import BeautifulSoup
 import requests
-#import DiagnosticTree3
+import DiagnosticTree3
 
 #from datetime import date
 
