@@ -11,6 +11,7 @@ dictionary = PyDictionary.PyDictionary()
 #import wikiquotes
 from bs4 import BeautifulSoup
 import requests
+import DiagnosticTree3
 
 #from datetime import date
 
@@ -127,7 +128,7 @@ def wiki(fulltext, from_number):
     elif QUERY == 'diagnose' or from_number in diagnow:
         if from_number not in diagnow:
             diagnow.append(from_number)
-            response = 'blah session ended' #DiagnosticTree2.smsqa(fulltext, from_number)
+            response = DiagnosticTree3.smsqa(fulltext, from_number)
         if 'session ended' in response:
             diagnow.remove(from_number)
         return response
@@ -185,5 +186,10 @@ Need to maintain log on file of past searches, a cache cleared every day or two 
 ^For continuity of 'more', past the breaks in system. And also explicity memory usage monitoring etc.
 ^^ Save the language holder and page summary holder to pickle or something everytime an authorized 
    shutdown occurs or a 12 hrs pass. load on every start cycle or every save cycle
+   
+Use Google translate instead of wikipedia Urdu peut-etre....
+
+BUGS:
+1) disambiguation pages need to be fixed. (text: wiki pia)
 
 """
