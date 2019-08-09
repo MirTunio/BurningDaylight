@@ -1,0 +1,19 @@
+,type,name,question,pointers,setflag
+0,triage,basic0,"Do you feel sick or weak? [Yes, No]","1,1",no
+1,triage,basic1,"Have you been sick for past 3 days or more? [Yes,No]","2,2",no
+2,triage,basic2,"Are you feeling symptoms you have not felt before? [Yes,No]","3,3",no
+3,triage,basic3,"Do you feel a specific event, habit, mistake or carelessness could have caused your symptoms? [Yes,No]","4,4",no
+4,AGE,branch0,"Do you have watery, non-bloody diarrhea/loose stools? [Yes,No]","5,8",no
+5,AGE,branch0riskfactor,"Do you have a fever? [Low grade,High Grade,No]","6,6,6","low grade fever, high grade fever, no"
+6,AGE,branch0,"Do you have yellow, green or yellow-white color stool? [Yes,No]","7,7",no
+7,AGE,branch0,"Do you have more than 3 to 4 episodes per day? [Yes,No]","8,8","AGE,no"
+8,AGE ,branch1riskfactor,"Do you experience abdominal pain? [Yes,No]","9,11",no
+9,AGE,branch1,"Is the pain located in? [Stomach,Radiating in abdomen]","11,10","AGE,no"
+10,AGE,branch1,"Is there significant pain? [Yes,No]","98,98","danger,no"
+11,AGE,branch2,"Do you have nause or vomiting? [Yes,No]","12,99",no
+12,AGE,branch2,"How many times do you vomit per day [1,2,3+]","13,13,13",no
+13,AGE,branch2,"Do you have Diarrhea? [Yes,No]","14,14",no
+14,AGE,branch2,"Do you have High Grade Fever? [Yes,No]","98,97",no
+97,treatment,AGE treatment,"You have AGE, do the following xyz",97,no
+98,treatment,refer to hospital,"You do not have AGE, go to your nearest hospital. For information reply 'hospital'",98,no
+99,treatment,noproblem,"You do not have seem to have a sever condition, please reply 'diagnose' to check again",99,no
