@@ -49,7 +49,11 @@ diagnostic_tree = loadtree(filename)
 record_name = 'record0.csv'
 records = loadtree(record_name)
 
-treatment_trees = {'AGE':'age_treatment.csv','HighFever':'highfever_treatment.csv','AGE+HighFever':'age_highfever_treatment.csv'}
+treatment_trees = {'AGE':'age_treatment.csv','HighFever':'age_treatment.csv','AGE+HighFever':'age_treatment.csv'}
+
+langhint={'':'en'}
+LANG_NOW = 'en'
+NUMBER_NOW = ''
 
 def sms(text,number):
     print(qa(text,number))
@@ -83,10 +87,34 @@ def add_record(record_in,filename):
     
 def endsession(from_number):
     del sessions[from_number]
+    
+def savesession(from_number): #TODO
+    pass
 
-def fmt(string_in):
-    #translator goes here
-    return string_in
+def langhint_add(from_number,language):
+    global langhint
+    langhint[from_number] = language
+
+def fmt(string_in,skip=False): #dont mess with double quoutes
+    global langhint
+    global NUMBER_NOW
+    
+    if NUMBER_NOW in langhint:
+        default_language = langhint[NUMBER_NOW]
+    else:
+        default_language = 'en'
+    
+    if skip or default_language == 'en':
+        return string_in
+    else:
+        string_out = ''
+        splitted = string_in.split('"')
+        for i in list(range(0,len(splitted))):
+            if i in list(range(0,len(splitted),2)):
+                string_out += translator.translate(splitted[i], dest='ur', src='en').text
+            else:
+                string_out+= '"' + splitted[i] + '"'
+        return string_out
 
 def getrow(tree_in,rowdex):
     CURRENT_ROW_DEX = np.where(tree_in[:,0] == rowdex)[0][0]
@@ -144,7 +172,8 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
     global sessions
     global records
     global record_name
-    
+    global NUMBER_NOW
+    NUMBER_NOW = from_number
     
     # Setting up session if not already set up...
     if from_number not in sessions:
@@ -164,8 +193,7 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
         sessions[from_number]['followup_track'] = 0
         sessions[from_number]['Rx'] = False
         sessions[from_number]['record_creation_encours'] = False
-        
-        
+            
     # SAME PAGE
     if not sessions[from_number]['same_page']: # Get on the same page, routine
         if in_record(from_number) and not len(sessions[from_number]['TEMP'])>0 and not sessions[from_number]['record_creation_encours']:
@@ -177,6 +205,10 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
         
         elif in_record(from_number) and len(sessions[from_number]['TEMP'])>0 and not fulltext.lower().lstrip().rstrip() == "no" and not sessions[from_number]['record_creation_encours']:
             if not is_number(fulltext):
+                if fulltext.lstrip().rstrip() == 'end':
+                    endsession(from_number)
+                    response = 'Session ended by user...' + '\n\nThank you for using sms-diagnosis!\nSession ended, for a second opinion reply: diagnose \n\n\n[SMSDIAGNOSISTUNIO2019]'
+                    return fmt(response)
                 response = 'Please reply with a number from options above'
                 return fmt(response)
             elif optChoice(fulltext) not in range(len(sessions[from_number]['TEMP'])):
@@ -199,6 +231,11 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
                 sessions[from_number]['diagnosing'] = True
                  
         else:
+            if fulltext.lstrip().rstrip() == 'end':
+                endsession(from_number)
+                response = 'Session ended by user...' + '\n\nThank you for using sms-diagnosis!\nSession ended, for a second opinion reply: diagnose \n\n\n[SMSDIAGNOSISTUNIO2019]'
+                return fmt(response)
+        
             sessions[from_number]['record_creation_encours'] = True
             q1 = ('fname', "Creating Record:\nWhat is patient's first name?")
             q2 = ('lname', "What is patient's last name?")
@@ -338,17 +375,16 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
             prescription = getRx(sessions[from_number]['rundex'], treatment_tree)
             response = prescription + '\n\nThank you for using sms-diagnosis!\nSession ended, for a second opinion reply: diagnose \n\n\n[SMSDIAGNOSISTUNIO2019]'
             endsession(from_number)
-            return fmt(response)
+            return fmt(response,skip=True)
 
 #%%
 """
-AFTER: 
-    > ADD DEHYDRATION QUESTIONS TO ahmed0.csv with appropriate flags etc... will need to move treatment markers to 'branch4' situation
-    > Followup routine
-NOTES:    
-    ON RECORDS AND CREATION:
-        Add previous complaints to records > endsession(), savesession parameter to add to records
-    
+TODO:
+> Translation function
+> Record should contain default language
+> dehydration questions (DEHYDRATION QUESTIONS TO ahmed0.csv with appropriate flags etc... will need to move treatment markers to 'branch4' situation)
+> Followup routine
+> Add previous complaints to records view a savesession(from_number) function
     
 """
     

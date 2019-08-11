@@ -85,14 +85,19 @@ def wiki(fulltext, from_number):
         language_holder[from_number] = 'ur'
         print("WIKIHELPER: language change to urdu")
         wikipedia.set_lang('ur')
-        response = "Language changed to urdu"
+        response = "Language changed to Urdu"
         
     elif QUERY == 'english':
         language_holder[from_number] = 'en'
         print("WIKIHELPER: language change to english")
         wikipedia.set_lang('en')
-        response = "Language changed to english"
+        response = "Language changed to English"
  
+    elif QUERY == 'sindhi':
+        language_holder[from_number] = 'sd'
+        print("WIKIHELPER: language change to Sindhi")
+        response = "Language changed to Sindhi"
+    
     elif QUERY == 'about':
         response = "Welcome to Wikipedia SMS, created by TUNIO 2019"
         
@@ -125,7 +130,10 @@ def wiki(fulltext, from_number):
         response = "Forecast for Karachi:\n{}".format('\n'.join(day_temp))
         
         
-    elif QUERY == 'doctor' or QUERY == 'diagnose' or QUERY == 'followup' or from_number in diagnow:
+    elif QUERY == 'doctor' or QUERY == 'diagnose' or QUERY == 'followup' or from_number in diagnow:      
+        assert_lang(from_number)
+        DiagnosticTree4.langhint_add(from_number,language_holder[from_number])
+        
         if from_number not in diagnow:
             diagnow.append(from_number)    
         
@@ -143,12 +151,15 @@ def wiki(fulltext, from_number):
 def assert_lang(from_number, override = False):
     if from_number not in language_holder:
         language_holder[from_number] = 'en'
+        DiagnosticTree4.langhint_add(from_number,language_holder[from_number])
 
     if override:
         wikipedia.set_lang('en')
     else:
         desired_language = language_holder[from_number]
-        wikipedia.set_lang(desired_language)
+        DiagnosticTree4.langhint_add(from_number,language_holder[from_number])
+        if desired_language != 'sd':
+            wikipedia.set_lang(desired_language)
         
 def add_newsplit(from_number, page_summary_full):   
     nchars = 600
