@@ -1,0 +1,11 @@
+Index,Fname,Lname,Age,City,Number,Followup
+0,M,T,22,Karachi,3212228888, 
+1,Mir,Taza,22,Karachi,900, 
+2,1,1,1,1,900, 
+3,0,0,0,0,900, 
+4,Junaid,Imam,25,KHI,900, 
+5,Amir,Haider,55,Sukkar,550022, 
+6,Junaid,Qabuli,37,Quetta,901,followup
+7,Khalid,Walid,80,Larkana,0900,
+8,Ghias,Sheikh,23,Ulru,0321,
+9,Moti,Laal,44,Peshawar,0321,

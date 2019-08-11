@@ -11,7 +11,7 @@ dictionary = PyDictionary.PyDictionary()
 #import wikiquotes
 from bs4 import BeautifulSoup
 import requests
-#import DiagnosticTree3
+import DiagnosticTree4
 
 #from datetime import date
 
@@ -125,11 +125,12 @@ def wiki(fulltext, from_number):
         response = "Forecast for Karachi:\n{}".format('\n'.join(day_temp))
         
         
-    elif QUERY == 'diagnose' or from_number in diagnow:
+    elif QUERY == 'doctor' or QUERY == 'diagnose' or QUERY == 'followup' or from_number in diagnow:
         if from_number not in diagnow:
-            diagnow.append(from_number)
-            response = 'no'#DiagnosticTree3.smsqa(fulltext, from_number)
-        if 'session ended' in response:
+            diagnow.append(from_number)    
+        
+        response = DiagnosticTree4.qa(fulltext, from_number)
+        if 'TUNIO2019' in response:
             diagnow.remove(from_number)
         return response
         

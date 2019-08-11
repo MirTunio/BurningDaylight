@@ -1,0 +1,5 @@
+,type,name,question,pointers,setflag
+0,filler,none,No question?[],"1,1,1,1,1,1,1","no,no,no,no,no,no,no"
+1,pre,access,"Do you have access to a pharmacy or hospital? [Yes,No]","2,3","prescription,prescription"
+2,prescription,Diarrhea Protocol,Rx Diarrhea Protocol:||Syp Zincat / Syp Zincday:|    1 Tablespoon|    once daily for 14 days||BIFLOR / ENFLOR sachet:|    1 sachet in morning|    1 sachet in evening|    for 3 days||ORS sachet:|    1 sachet in 1 litre water|    one glass after every loose stool,2,done
+3,prescription,Diarrhea Home Remedies,"Rx Diarrhea Home Remedies:||    Drink boiled water only|    Eat only Khicrhi, Bananas and yogurt|    NO outside food|    Drink Black Tea with a pinch of salt",3,done
