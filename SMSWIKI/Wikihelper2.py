@@ -97,7 +97,7 @@ def wiki(fulltext, from_number):
         response = "Welcome to Wikipedia SMS, created by TUNIO 2019"
         
     elif QUERY == 'how':
-        response = "To search reply with: search Albert Einstein\nto open a page reply with: wiki Albert Einstein\nto view next part reply with: more\nto set language to urdu reply: urdu\nto set language to english reply: english\nto use dictionary reply with: define abstraction."
+        response = "To search reply with: search Albert Einstein\nto open a page reply with: wiki Albert Einstein\nto view next part reply with: more\nto set language to urdu reply: urdu\nto set language to english reply: english\nto use dictionary reply with: define abstraction\nto use sms-diagnosis reply: doctor."
    
 #    elif QUERY == 'quote': #Quote library does not work on Termux/Linux flavor. We can figure this out later... 
 #        QUOTE = wikiquotes.quote_of_the_day("english")
@@ -192,5 +192,7 @@ Use Google translate instead of wikipedia Urdu peut-etre....
 
 BUGS:
 1) disambiguation pages need to be fixed. (text: wiki pia)
+2) Better handling of poorly formatted questions
+3) Connect this shit to a Siri/Alexa/Assitant/someone else API
 
 """
