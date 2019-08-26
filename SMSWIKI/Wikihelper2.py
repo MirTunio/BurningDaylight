@@ -130,7 +130,7 @@ def wiki(fulltext, from_number):
         response = "Forecast for Karachi:\n{}".format('\n'.join(day_temp))
         
         
-    elif QUERY == 'doctor' or QUERY == 'diagnose' or QUERY == 'followup' or from_number in diagnow:      
+    elif QUERY == 'doctor' or QUERY.lower() == 'diagnose' or QUERY == 'followup' or from_number in diagnow:      
         assert_lang(from_number)
         DiagnosticTree4.langhint_add(from_number,language_holder[from_number])
         
@@ -205,5 +205,8 @@ BUGS:
 1) disambiguation pages need to be fixed. (text: wiki pia)
 2) Better handling of poorly formatted questions
 3) Connect this shit to a Siri/Alexa/Assitant/someone else API
+    
+BEST IDEA YET: Translate article to Urdu and fucking read it to people over the phone. This is 
+next fucking level. This is the loop almost closed. This is the loop almost closed.
 
 """
