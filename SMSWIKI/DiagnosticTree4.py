@@ -205,7 +205,7 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
         
         elif in_record(from_number) and len(sessions[from_number]['TEMP'])>0 and not fulltext.lower().lstrip().rstrip() == "no" and not sessions[from_number]['record_creation_encours']:
             if not is_number(fulltext):
-                if fulltext.lstrip().rstrip() == 'end':
+                if fulltext.lower().lstrip().rstrip() == 'end':
                     endsession(from_number)
                     response = 'Session ended by user...' + '\n\nThank you for using sms-diagnosis!\nSession ended, for a second opinion reply: diagnose \n\n\n[SMSDIAGNOSISTUNIO2019]'
                     return fmt(response)
@@ -231,16 +231,16 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
                 sessions[from_number]['diagnosing'] = True
                  
         else:
-            if fulltext.lstrip().rstrip() == 'end':
+            if fulltext.lower().lstrip().rstrip() == 'end':
                 endsession(from_number)
                 response = 'Session ended by user...' + '\n\nThank you for using sms-diagnosis!\nSession ended, for a second opinion reply: diagnose \n\n\n[SMSDIAGNOSISTUNIO2019]'
                 return fmt(response)
         
             sessions[from_number]['record_creation_encours'] = True
-            q1 = ('fname', "Creating Record:\nWhat is patient's first name?")
-            q2 = ('lname', "What is patient's last name?")
-            q3 = ('age', "What is patient's age?")
-            q4 = ('city', "What city is patient in?")
+            q1 = ('fname', "Creating Record:\nWhat is the patient's first name?")
+            q2 = ('lname', "What is the patient's last name?")
+            q3 = ('age', "What is the patient's age?")
+            q4 = ('city', "What city is the patient in?")
             RecordCreationQues = [q1,q2,q3,q4,('done','done')]
 
             recdex = sessions[from_number]['same_page_track']
@@ -302,12 +302,12 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
     diagnostic_tree = loadtree('ahmed0.csv') # doing this for now
     if sessions[from_number]['diagnosing']: # Diagnostic routine    
         
-        if fulltext.lstrip().rstrip() == 'end':
+        if fulltext.lower().lstrip().rstrip() == 'end':
             endsession(from_number)
             response = 'Session ended by user...' + '\n\nThank you for using sms-diagnosis!\nSession ended, for a second opinion reply: diagnose \n\n\n[SMSDIAGNOSISTUNIO2019]'
             return fmt(response)
             
-        if fulltext.lstrip().rstrip() == 'diagnose' and sessions[from_number]['diagnosing_track'] == 0:
+        if fulltext.lower().lstrip().rstrip() == 'diagnose' and sessions[from_number]['diagnosing_track'] == 0:
             sessions[from_number]['rundex'], hypothesis, treatment = nextdex('0', sessions[from_number]['rundex'], diagnostic_tree)
         elif is_number(fulltext) and optChoice(fulltext) in range(len(getrow(diagnostic_tree,sessions[from_number]['rundex'])[4].split(','))):
             sessions[from_number]['rundex'], hypothesis, treatment = nextdex(fulltext, sessions[from_number]['rundex'], diagnostic_tree)
