@@ -48,6 +48,7 @@ def wiki(fulltext, from_number):
         print('WIKIHELPER (query): got a wiki')
         page_title = sub(' +', ' ', fulltext[4:].rstrip().lstrip())
         print('WIKIHELPER (page name): ' + page_title)
+        
         try: 
             page_summary_full = wikipedia.summary(page_title)
             if page_summary_full == "":
@@ -56,8 +57,17 @@ def wiki(fulltext, from_number):
             
             add_newsplit(from_number, page_summary_full)
             response = 'PART 1 of {}: '.format(str(len(page_summary_holder[from_number][1]))) + page_summary_holder[from_number][1][0]+' [reply: "more"]'
+        
         except wikipedia.PageError:
+            print('page error')
             response = "This page does not exist, try using 'search' and replying with correct spelling..."
+        
+        except wikipedia.DisambiguationError:
+            print('disambig error')
+            disambig = ''
+            for alt in wikipedia.search(page_title)[:6]:
+                disambig += '\n' + alt
+            response = "Please be more specific, do you mean:" + disambig + '\n\nOr perhaps try: define ' + page_title
             
     elif QUERY == 'more': 
         if from_number not in page_summary_holder:
@@ -104,7 +114,7 @@ def wiki(fulltext, from_number):
     elif QUERY == 'how':
         response = "To search reply with: search Albert Einstein\nto open a page reply with: wiki Albert Einstein\nto view next part reply with: more\nto set language to urdu reply: urdu\nto set language to english reply: english\nto use dictionary reply with: define abstraction\nto get weather for karachi (beta), reply: weather\nto use sms-diagnosis reply: doctor."
    
-#    elif QUERY == 'quote': #Quote library does not work on Termux/Linux flavor. We can figure this out later... 
+#    elif QUERY == 'quote': #Quote library does not work on Arch Linux. We can figure this out later... 
 #        QUOTE = wikiquotes.quote_of_the_day("english")
 #        response = QUOTE[0] + " - " + QUOTE[1]
         
@@ -138,7 +148,7 @@ def wiki(fulltext, from_number):
             diagnow.append(from_number)    
         
         response = DiagnosticTree4.qa(fulltext, from_number)
-        if 'TUNIO2019' in response:
+        if '[SMSDIAGNOSIS2019]' in response:
             diagnow.remove(from_number)
         return response
         
@@ -208,5 +218,10 @@ BUGS:
     
 BEST IDEA YET: Translate article to Urdu and fucking read it to people over the phone. This is 
 next fucking level. This is the loop almost closed. This is the loop almost closed.
+
+NLP/CHATBOT: Creating new interface which will have all the old functionality + a chatbot to help understand poor syntax
+
+
+SHOULD ONLY SAY 'reply: more' for genuine multipart msgs 
 
 """

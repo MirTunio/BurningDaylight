@@ -9,28 +9,7 @@ Similar target audience
 Working with Ahmed Mahmood, who is designing
 the diagnostic flowcharts
 """
-"""
-Need a radically new approach to how the tree is strtuctured and traversed
-Need setflags or something else which maintains running markers which
-can be used in later questions
 
-Perhaps:
-    - Ask ques in order listed on chart
-    - +1 for everything moving toward a diagnosis
-    - -1 for everything moving away
-    - once endstate it looks at possibilities and yields most probable
-    - except when a 'danger' flag is raised in which case it says go to hospital
-    - ok
-    
-How to cycle questions:
-    - same as before, but for fucks sake write the code better.
-    
-Record Creation:
-    - run routine on every message in
-    - ask if 'Ahmed' or whatever name on record, if no, create new record with same number
-    - if multiple records same number, ask which patient 1 ahmed, 2 mir, etc...
-    - [Fname, Lname, Age, NIC, City, Number]
-"""
 #%% Imports and helper functions for init
 import csv
 import numpy as np
@@ -55,12 +34,15 @@ langhint={'':'en'}
 LANG_NOW = 'en'
 NUMBER_NOW = ''
 
+Footer = '\n\n\n[SMSDIAGNOSIS2019]'
+SessionEndMessage = '\n\nThank you for using sms-diagnosis!\nSession ended, for a second opinion reply: diagnose ' + Footer
+                    
 def sms(text,number):
     print(qa(text,number))
 
 #%% Session maintainance
-sessions = {} # phone number:session dictionary, dict of dicts, holds all information about current session for each number
-#keys: same_page:True,False (are all prelimsclear?), has_record:True/False, preferred_language:'en'/'ur'/'sd', rundex:int of where in tree, runpointers: where incoming options point, diagnostic_points:somehowwhich diagnostic points, etc...
+sessions = {} # phone number:session dictionary (dict of dicts, holds all information about current session for each number)
+                            #session dictionary --> same_page:True,False (are all prelimsclear?), has_record:True/False, preferred_language:'en'/'ur'/'sd', rundex:int of where in tree, runpointers: where incoming options point, diagnostic_points:somehowwhich diagnostic points, etc...
 
 #%% Helper functions for question cycling
 def in_record(from_number):
@@ -207,7 +189,7 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
             if not is_number(fulltext):
                 if fulltext.lower().lstrip().rstrip() == 'end':
                     endsession(from_number)
-                    response = 'Session ended by user...' + '\n\nThank you for using sms-diagnosis!\nSession ended, for a second opinion reply: diagnose \n\n\n[SMSDIAGNOSISTUNIO2019]'
+                    response = 'Session ended by user...' + SessionEndMessage
                     return fmt(response)
                 response = 'Please reply with a number from options above'
                 return fmt(response)
@@ -233,7 +215,7 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
         else:
             if fulltext.lower().lstrip().rstrip() == 'end':
                 endsession(from_number)
-                response = 'Session ended by user...' + '\n\nThank you for using sms-diagnosis!\nSession ended, for a second opinion reply: diagnose \n\n\n[SMSDIAGNOSISTUNIO2019]'
+                response = 'Session ended by user...' + SessionEndMessage
                 return fmt(response)
         
             sessions[from_number]['record_creation_encours'] = True
@@ -288,10 +270,10 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
             if is_number(fulltext) and optChoice(fulltext) in range(2):
                 choice = optChoice(fulltext)
                 if choice == 0:
-                    response = 'Please visit your nearest hospital! \nReply with the name of your city to recieve list of nearby hospitals/care centers.\nSession ended, for a second opinion reply: diagnose \n\n\n[SMSDIAGNOSISTUNIO2019]'
+                    response = 'Please visit your nearest hospital! \nReply with the name of your city to recieve list of nearby hospitals/care centers.\nSession ended, for a second opinion reply: diagnose '+ Footer
                     return fmt(response)
                 elif choice == 1:   
-                    response = 'Stop treatment and return to baseline remedies for 1 week' + '\n\nThank you for using sms-diagnosis!\nSession ended, for a second opinion reply: diagnose \n\n\n[SMSDIAGNOSISTUNIO2019]'
+                    response = 'Stop treatment and return to baseline remedies for 1 week' + SessionEndMessage
                     return fmt(response)
             else:
                 response = 'Please reply with a number from options above'
@@ -304,7 +286,7 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
         
         if fulltext.lower().lstrip().rstrip() == 'end':
             endsession(from_number)
-            response = 'Session ended by user...' + '\n\nThank you for using sms-diagnosis!\nSession ended, for a second opinion reply: diagnose \n\n\n[SMSDIAGNOSISTUNIO2019]'
+            response = 'Session ended by user...' + SessionEndMessage
             return fmt(response)
             
         if fulltext.lower().lstrip().rstrip() == 'diagnose' and sessions[from_number]['diagnosing_track'] == 0:
@@ -315,7 +297,7 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
             response = 'Please reply with a number from options above'
             return fmt(response)              
             
-        if fulltext.lstrip().rstrip() == 'diagnose':
+        if fulltext.lstrip().rstrip().lower() == 'diagnose':
             sessions[from_number]['diagnosing_track'] += 1
             
         if sessions[from_number]['diagnosing_track'] == 0:
@@ -341,7 +323,7 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
             if 'danger' in hypostring:
                 sessions[from_number]['treatment_track'] += 1
                 sessions[from_number]['treatment_for'] = 'DANGER'
-                response = 'Patient is in a HIGH risk condition!! \nReply with the name of your city to recieve list of nearby hospitals/care centers\nSession ended, for a second opinion reply: diagnose '+ '\n\n\n[SMSDIAGNOSISTUNIO2019]'
+                response = 'Patient is in a HIGH risk condition!! \nReply with the name of your city to recieve list of nearby hospitals/care centers\nSession ended, for a second opinion reply: diagnose '+ Footer
                 endsession(from_number)
                 return fmt(response)
             
@@ -360,7 +342,7 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
                 sessions[from_number]['treatment_for'] = 'HighFever'
                 
             else:
-                response = 'Patient is in a low risk condition. \nPlease reply with "diagnose" for a second opinion\nSession ended, for a second opinion reply: diagnose ' + '\n\n\n[SMSDIAGNOSISTUNIO2019]'
+                response = 'Patient is in a low risk condition. \nPlease reply with "diagnose" for a second opinion\nSession ended, for a second opinion reply: diagnose ' + Footer
                 endsession(from_number)
                 return fmt(response)
         
@@ -373,7 +355,7 @@ def qa(fulltext, from_number): #given list of questions, options, and where they
             return next_question
         else:
             prescription = getRx(sessions[from_number]['rundex'], treatment_tree)
-            response = prescription + '\n\nThank you for using sms-diagnosis!\nSession ended, for a second opinion reply: diagnose \n\n\n[SMSDIAGNOSISTUNIO2019]'
+            response = prescription + SessionEndMessage
             endsession(from_number)
             return fmt(response,skip=True)
 
