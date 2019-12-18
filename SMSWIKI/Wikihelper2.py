@@ -81,7 +81,11 @@ def wiki(fulltext, from_number):
             if COUNTER_RETRIEVED >= len(SPLIT_RETRIEVED):
                 response = "END OF SUMMARY... wiki something new!"
             else:
-                response = 'PART {} of {}: '.format(str(COUNTER_RETRIEVED+1),str(len(SPLIT_RETRIEVED))) + SPLIT_RETRIEVED[COUNTER_RETRIEVED] +' [reply: "more"]'
+                response = 'PART {} of {}: '.format(str(COUNTER_RETRIEVED+1),str(len(SPLIT_RETRIEVED))) + SPLIT_RETRIEVED[COUNTER_RETRIEVED]
+                                
+                if COUNTER_RETRIEVED+1 != len(SPLIT_RETRIEVED):
+                    response += ' [reply: "more"]'
+                
                 push_split_counter(from_number)
      
     elif QUERY == 'define':
