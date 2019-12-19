@@ -56,7 +56,10 @@ def wiki(fulltext, from_number):
                 return response   
             
             add_newsplit(from_number, page_summary_full)
-            response = 'PART 1 of {}: '.format(str(len(page_summary_holder[from_number][1]))) + page_summary_holder[from_number][1][0]+' [reply: "more"]'
+            response = 'PART 1 of {}: '.format(str(len(page_summary_holder[from_number][1]))) + page_summary_holder[from_number][1][0]
+
+            if COUNTER_RETRIEVED+1 != len(SPLIT_RETRIEVED):
+            	response += ' [reply: "more"]'
         
         except wikipedia.PageError:
             print('page error')
