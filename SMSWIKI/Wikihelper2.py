@@ -29,12 +29,13 @@ def wiki(fulltext, from_number):
     global language_holder
     global page_summary_holder
     
-    QUERY = fulltext.split(' ')[0].lower().rstrip().lstrip()
+    QUERY = fulltext.replace('\\n','').split(' ')[0].lower().rstrip().lstrip()
+    print(QUERY)
     
     if QUERY == 'search': #TODO: NEEDS TO RETURN: RESULTS 1. abcd, 2. asdf, and say: reply with 1 or 2 (etc.) to open wiki page
         print('WIKIHELPER: got a search')
         assert_lang(from_number, override = True)
-        search_term = fulltext[7:].lower().rstrip().lstrip() #cuts out the search
+        search_term = fulltext[7:].rstrip().lstrip() #cuts out the search
         print(search_term)
         search_result = wikipedia.search(search_term) #searches wikipedia with query
         search5 = search_result[:5]

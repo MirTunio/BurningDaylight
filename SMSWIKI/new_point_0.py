@@ -6,6 +6,8 @@ Python Envaya Wiki Client
 NOW WITH THE SESSIONS FOR EACH NUMBER IT SHOULD HAVE HAD...
 
 [Explore https://smsgateway.me/ in future ...]
+
+latest - 19/12/2019
 """
 
 from flask import Flask, request, jsonify
